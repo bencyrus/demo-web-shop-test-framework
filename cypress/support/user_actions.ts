@@ -38,12 +38,13 @@ declare namespace Cypress {
 }
 
 Cypress.Commands.add('login', (email: string, password: string) => {
+    cy.get('a[href="/login"]').click()
     cy.get('form[action="/login"]').within(() => {
-        cy.get('input[name="email"]').clear()
-        cy.get('input[name="password"]').clear()
-        cy.get('input[name="email"]').type(email)
-        cy.get('input[name="password"]').type(password)
-        cy.get('button').contains('Login').click()
+        cy.get('input[name="Email"]').clear()
+        cy.get('input[name="Password"]').clear()
+        cy.get('input[name="Email"]').type(email)
+        cy.get('input[name="Password"]').type(password)
+        cy.contains('Log in').click()
     })
 })
 
