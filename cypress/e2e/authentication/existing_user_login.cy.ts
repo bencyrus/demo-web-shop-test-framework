@@ -14,7 +14,7 @@ describe('Login Test', () => {
         cy.fixture('userData').as('userData')
 
         // Navigate to the login page before each test
-        cy.visit('https://demowebshop.tricentis.com/login')
+        cy.visit(Cypress.config('baseUrl') + '/login')
 
         // Check if the "Welcome, Please Sign In!" message is displayed
         cy.get('.page-title h1').should('contain', 'Welcome, Please Sign In!')
