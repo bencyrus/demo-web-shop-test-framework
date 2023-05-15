@@ -10,4 +10,3 @@ declare namespace Cypress {
 Cypress.Commands.add('loadWebsite', () => {
     cy.visit(Cypress.config('baseUrl'))
 })
-
