@@ -1,0 +1,4 @@
+{
+    "query": "laptop",
+    "expectedURL": "https://demowebshop.tricentis.com/search?q="
+}

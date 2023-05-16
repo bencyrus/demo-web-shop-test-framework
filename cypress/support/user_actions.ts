@@ -28,7 +28,13 @@ declare namespace Cypress {
          * @param {string} expiry_month - takes expiry month as string
          * @param {string} expiry_year - takes expiry year as string
          */
-        makePayment(nameOnCard: string, cardNumber: string, cvc: string, expiry_month: string, expiry_year: string): Chainable<Element>
+        makePayment(
+            nameOnCard: string,
+            cardNumber: string,
+            cvc: string,
+            expiry_month: string,
+            expiry_year: string,
+        ): Chainable<Element>
 
         /**
          * Downloads the invoice
@@ -55,35 +61,48 @@ Cypress.Commands.add('searchProduct', (productName: string) => {
 })
 
 Cypress.Commands.add('addProductToCart', (productIndex: number) => {
-    cy.get('.productinfo').eq(productIndex).within(() => {
-        cy.get('a').contains('Add to cart').click()
-    })
+    cy.get('.productinfo')
+        .eq(productIndex)
+        .within(() => {
+            cy.get('a').contains('Add to cart').click()
+        })
     cy.get('button').contains('Continue Shopping').click()
 })
 
 Cypress.Commands.add('removeProductFromCart', (productIndex: number) => {
-    cy.get('tbody tr').eq(productIndex).within(() => {
-        cy.get('.cart_quantity_delete').click()
-    })
+    cy.get('tbody tr')
+        .eq(productIndex)
+        .within(() => {
+            cy.get('.cart_quantity_delete').click()
+        })
 })
 
-Cypress.Commands.add('makePayment', (nameOnCard: string, cardNumber: string, cvc: string, expiry_month: string, expiry_year: string) => {
-    cy.get('form[action="/payment"]').within(() => {
-        cy.get('input[name="name_on_card"]').clear()
-        cy.get('input[name="card_number"]').clear()
-        cy.get('input[name="cvc"]').clear()
-        cy.get('input[name="expiry_month"]').clear()
-        cy.get('input[name="expiry_year"]').clear()
+Cypress.Commands.add(
+    'makePayment',
+    (
+        nameOnCard: string,
+        cardNumber: string,
+        cvc: string,
+        expiry_month: string,
+        expiry_year: string,
+    ) => {
+        cy.get('form[action="/payment"]').within(() => {
+            cy.get('input[name="name_on_card"]').clear()
+            cy.get('input[name="card_number"]').clear()
+            cy.get('input[name="cvc"]').clear()
+            cy.get('input[name="expiry_month"]').clear()
+            cy.get('input[name="expiry_year"]').clear()
 
-        cy.get('input[name="name_on_card"]').type(nameOnCard)
-        cy.get('input[name="card_number"]').type(cardNumber)
-        cy.get('input[name="cvc"]').type(cvc)
-        cy.get('input[name="expiry_month"]').type(expiry_month)
-        cy.get('input[name="expiry_year"]').type(expiry_year)
+            cy.get('input[name="name_on_card"]').type(nameOnCard)
+            cy.get('input[name="card_number"]').type(cardNumber)
+            cy.get('input[name="cvc"]').type(cvc)
+            cy.get('input[name="expiry_month"]').type(expiry_month)
+            cy.get('input[name="expiry_year"]').type(expiry_year)
 
-        cy.get('button').contains('Pay and Confirm Order').click()
-    })
-})
+            cy.get('button').contains('Pay and Confirm Order').click()
+        })
+    },
+)
 
 Cypress.Commands.add('downloadInvoice', () => {
     cy.window().then((win) => {
@@ -92,6 +111,6 @@ Cypress.Commands.add('downloadInvoice', () => {
             win.document.removeEventListener('click', clickListener)
             setTimeout(() => win.location.reload(), 5000)
         })
-        downloadButton.click({force: true})
+        downloadButton.click({ force: true })
     })
 })
