@@ -12,6 +12,7 @@ describe('Login Test', () => {
     beforeEach(() => {
         // Load user data from the fixture before each test
         cy.fixture('userData').as('userData')
+        cy.fixture('invalidUserData').as('invalidUserData')
 
         // Navigate to the login page before each test
         cy.visit(Cypress.config('baseUrl') + '/login')
@@ -22,7 +23,7 @@ describe('Login Test', () => {
 
     it('should not log in with incorrect credentials', function () {
         // Use the custom 'login' command to log in with incorrect credentials
-        cy.login('invalid_email@example.com', 'invalid_password')
+        cy.login(this.invalidUserData)
 
         // Verify that the error message is displayed
         cy.get(
@@ -35,7 +36,7 @@ describe('Login Test', () => {
 
     it('should log in with correct credentials', function () {
         // Use the custom 'login' command to log in
-        cy.login(this.userData.email, this.userData.password)
+        cy.login(this.userData)
 
         // Verify that the correct user's email is displayed in the header
         cy.get('.header-links-wrapper .account').should(
