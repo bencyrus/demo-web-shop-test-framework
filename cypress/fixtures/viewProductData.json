@@ -1,0 +1,24 @@
+[
+    {
+        "productType": "Computers",
+        "productSubtype": "Desktops",
+        "productName": "Build your own cheap computer"
+    },
+    {
+        "productType": "Books",
+        "productName": "Computing and Internet"
+    },
+    {
+        "productType": "Books",
+        "productName": "Fiction"
+    },
+    {
+        "productType": "Books",
+        "productName": "Health Book"
+    },
+    {
+        "productType": "Computers",
+        "productSubtype": "Desktops",
+        "productName": "Build your own computer"
+    }
+]

@@ -1,4 +1,4 @@
-// This test case ensures that an unregistered user can register with an unused email and the necessary information.
+// This test case ensures that users can register a new account and log in to the Demo Web Shop site
 // The test case will fail if there is an account registered using the given email.
 /**
 Step Number	Description	                    Object	                                                                        Data	                            Expected Result
@@ -42,7 +42,7 @@ describe('Register Test', () => {
 
     it('should register successfully with fresh email', function () {
         // Use the custom 'register' command to register
-        var freshEmail = makeFreshEmail(this.registerData.email)
+        const freshEmail = makeFreshEmail(this.registerData.email)
         cy.register(this.registerData.firstName, this.registerData.lastName, freshEmail, this.registerData.password)
 
         // Verify that the correct user's email is displayed in the header

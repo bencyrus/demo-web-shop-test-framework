@@ -21,6 +21,10 @@ declare namespace Cypress {
          * @param {string} senderEmail - sender's email address
          */
         fillGiftCard(name, email, sender, senderEmail): Chainable<Element>
+        /**
+         * @param {productData} product - An object extracted from a json such as compareProductData containing type and name info of a product
+         */
+        visitProductPage(product): Chainable<Element>
     }
 }
 
@@ -72,4 +76,12 @@ Cypress.Commands.add('fillGiftCard', (name, email, sender, senderEmail) => {
     cy.get('input[id="giftcard_2_SenderName"]').type(sender)
     cy.get('input[id="giftcard_2_SenderEmail"]').clear()
     cy.get('input[id="giftcard_2_SenderEmail"]').type(senderEmail)
+})
+
+Cypress.Commands.add('visitProductPage', (product) => {
+    cy.get('ul.top-menu').contains(product.productType).click()
+        if (product.productSubtype != null) {
+            cy.get('.sub-category-grid').contains(product.productSubtype).click()
+        }
+        cy.contains(product.productName).click()
 })
