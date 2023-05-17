@@ -20,6 +20,11 @@ Step Number	Description	Object	Data	Expected Result
 15	Fill out the Payment Information form	Payment Information fields	Card	
 */
 describe('Guest checkout testing', () => {
+    before(function () {
+        cy.clearCookies()
+        cy.clearLocalStorage()
+    })
+
     beforeEach(function () {
         cy.fixture('billingInformation').as('b')
         cy.fixture('creditCard').as('c')

@@ -17,7 +17,7 @@ describe('search bar testing', () => {
 
     it('should navigate to the homepage, enter a query in the search bar, click the search button, and verify that the browser navigates to the search results page for that exact query', function () {
         cy.loadWebsite()
-        cy.searchProduct(this.searchData.BC002query)
+        cy.searchProduct(this.searchData.query)
         cy.url().should(
             'eq',
             this.searchData.expectedURL +

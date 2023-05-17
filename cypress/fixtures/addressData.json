@@ -1,0 +1,15 @@
+{
+    "id": 0,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@test.com",
+    "company": "Test Ltd.",
+    "countryId": 1,
+    "stateProvinceId": 2,
+    "city": "Los Angeles",
+    "address1": "123 Test St.",
+    "address2": "Apt. 4B",
+    "zip": "90001",
+    "phoneNumber": "1234567890",
+    "faxNumber": "0987654321"
+}

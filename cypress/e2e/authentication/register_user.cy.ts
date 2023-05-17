@@ -11,44 +11,33 @@ Step Number	Description	                    Object	                             
 7	        Check the "Account" link	    The "Account" link that contains the customer email at the top of the webpage	"twambsgans@atn.com"	            The email displayed as the account link matches the email input during registration 
 */
 
-import { makeFreshEmail } from "../../support/utils"
+import { makeFreshEmail } from '../../support/utils'
+import { RegisterData } from '../../support/interfaces'
 
 describe('Register Test', () => {
+    let registerData: RegisterData
+
     beforeEach(() => {
-        // Load user data from the fixture before each test
-        cy.fixture('registerData').as('registerData')
-
-        // Navigate to the login page before each test
+        cy.fixture('registerData').then((data) => {
+            registerData = data
+        })
         cy.visit(Cypress.config('baseUrl') + '/register')
-
-        // Check if the "Welcome, Please Sign In!" message is displayed
         cy.get('.page-title h1').should('contain', 'Register')
     })
 
-    // todo - test password mismatch? error message displays before submit and after submit
-
     it('should fail registration with reused email', function () {
-        // Use the custom 'login' command to log in with incorrect credentials
-        cy.register(this.registerData.firstName, this.registerData.lastName, this.registerData.email, this.registerData.password)
+        cy.register(registerData)
 
-        // Verify that the error message is displayed
         cy.get(
             '.page-body .message-error .validation-summary-errors li',
-        ).should(
-            'contain',
-            'The specified email already exists',
-        )
+        ).should('contain', 'The specified email already exists')
     })
 
     it('should register successfully with fresh email', function () {
-        // Use the custom 'register' command to register
-        var freshEmail = makeFreshEmail(this.registerData.email)
-        cy.register(this.registerData.firstName, this.registerData.lastName, freshEmail, this.registerData.password)
+        var freshEmail = makeFreshEmail(registerData.email)
+        registerData.email = freshEmail
+        cy.register(registerData)
 
-        // Verify that the correct user's email is displayed in the header
-        cy.get('.header-links-wrapper .account').should(
-            'have.text',
-            freshEmail,
-        )
+        cy.get('.header-links-wrapper .account').should('have.text', freshEmail)
     })
 })
