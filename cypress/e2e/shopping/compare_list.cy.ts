@@ -21,11 +21,19 @@ Step Number	Description	                                                        
 18	        Confirm that only one item now exists in the compare list	                                                                        The "compare-products-table" table	                                                            The element in the "Compare-products-table" table	                            Only one item belongs to the compare list
 */
 
+import { UserData, ProductData } from '../../support/interfaces'
+
 describe('Compare List Test', () => {
+    let userData: UserData
+    let productList: ProductData[]
     beforeEach(() => {
         // Load user and product data from the fixture before each test
-        cy.fixture('userData').as('userData')
-        cy.fixture('compareProductData').as('productList')
+        cy.fixture('userData').then((data) => {
+            userData = data
+        })
+        cy.fixture('compareProductData').then((data) => {
+            productList = data
+        })
 
         // Navigate to the login page before each test
         cy.visit(Cypress.config('baseUrl') + 'login')
@@ -33,9 +41,9 @@ describe('Compare List Test', () => {
 
     it('should add and remove items from the compare list successfully', function () {
         // Use the custom 'login' command to log in
-        cy.login(this.userData.email, this.userData.password)
+        cy.login(userData)
 
-        for (let product of this.productList) {
+        for (let product of productList) {
             cy.visitProductPage(product)
             cy.get('[value="Add to compare list"]').click()
         }
@@ -43,11 +51,11 @@ describe('Compare List Test', () => {
         cy.url().should('eq', Cypress.config('baseUrl') + 'compareproducts')
         cy.get('tbody').then((compareTable) => {
             cy.wrap(compareTable).find('.product-name').children('.a-center').should('have.length', 2).each((product, index, products) => {
-                cy.wrap(product).children().should('have.text', this.productList[this.productList.length - 1 - index].productName)
+                cy.wrap(product).children().should('have.text', productList[productList.length - 1 - index].productName)
             })
 
             cy.wrap(compareTable).find('[value="Remove"]').eq(0).click()
         })
-        cy.get('.overview').children('.a-center').should('have.length', this.productList.length - 1)
+        cy.get('.overview').children('.a-center').should('have.length', productList.length - 1)
     })
 })

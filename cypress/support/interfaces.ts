@@ -25,3 +25,9 @@ export interface Address {
     phoneNumber: string
     faxNumber: string
 }
+
+export interface ProductData {
+    productType: string
+    productSubtype: string
+    productName: string
+}

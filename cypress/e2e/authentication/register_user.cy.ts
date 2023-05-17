@@ -34,7 +34,7 @@ describe('Register Test', () => {
     })
 
     it('should register successfully with fresh email', function () {
-        var freshEmail = makeFreshEmail(registerData.email)
+        const freshEmail = makeFreshEmail(registerData.email)
         registerData.email = freshEmail
         cy.register(registerData)
 

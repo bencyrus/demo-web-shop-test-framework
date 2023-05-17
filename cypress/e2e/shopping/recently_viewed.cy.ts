@@ -14,30 +14,37 @@ Step Number	Description	                                                        
 11	        Verify that the first element of the Recently Viewed Products list matches the most-recently-added element in the queue	                            The first element in the "list" unordered list on the homepage	        The string at the back of the queue	            The name of the first list item should match the name of the element stored at the back of the queue
 */
 
+import { ProductData } from '../../support/interfaces'
+
 describe('Recently Viewed List Test', () => {
+    let productList: ProductData[]
     beforeEach(() => {
         // Load product data from the fixture before each test
-        cy.fixture('viewProductData').as('productList')
+        cy.fixture('viewProductData').then((data) => {
+            productList = data
+        })
 
         // Navigate to the home page before each test
+        cy.clearCookies()
+        cy.clearLocalStorage()
         cy.visit(Cypress.config('baseUrl'))
     })
 
     it('should add and remove items from the compare list successfully', function () {
         for (let i = 0; i < 4; i++) {
-            cy.visitProductPage(this.productList[i])
+            cy.visitProductPage(productList[i])
         }
 
         cy.get('.header-logo').click()
         cy.get('.block-recently-viewed-products').find('.list').children().then((recentProducts) => {
-            cy.wrap(recentProducts).eq(3).find('.product-name').should('have.text', this.productList[0].productName)
+            cy.wrap(recentProducts).eq(3).find('.product-name').should('have.text', productList[0].productName)
         })
 
-        cy.visitProductPage(this.productList[4])
+        cy.visitProductPage(productList[4])
         cy.get('.header-logo').click()
         cy.get('.block-recently-viewed-products').find('.list').children().then((recentProducts) => {
-            cy.wrap(recentProducts).eq(3).find('.product-name').should('have.text', this.productList[1].productName)
-            cy.wrap(recentProducts).eq(0).find('.product-name').should('have.text', this.productList[4].productName)
+            cy.wrap(recentProducts).eq(3).find('.product-name').should('have.text', productList[1].productName)
+            cy.wrap(recentProducts).eq(0).find('.product-name').should('have.text', productList[4].productName)
         })
     })
 })

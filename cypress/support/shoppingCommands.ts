@@ -22,7 +22,7 @@ declare namespace Cypress {
          */
         fillGiftCard(name, email, sender, senderEmail): Chainable<Element>
         /**
-         * @param {productData} product - An object extracted from a json such as compareProductData containing type and name info of a product
+         * @param {ProductData} product - An object extracted from a json such as compareProductData containing type and name info of a product
          */
         visitProductPage(product): Chainable<Element>
     }
