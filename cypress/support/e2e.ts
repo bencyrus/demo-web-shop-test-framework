@@ -17,6 +17,7 @@
 import 'cypress-mochawesome-reporter/register'
 import './app'
 import './authenticationCommands'
+import './userProfileCommands'
 import './shoppingCommands'
 
 // Alternatively you can use CommonJS syntax:
