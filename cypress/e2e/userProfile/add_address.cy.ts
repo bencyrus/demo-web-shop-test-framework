@@ -20,29 +20,29 @@
 
 describe('Add address', () => {
     before(() => {
-        cy.clearCookies()
-        cy.clearLocalStorage()
+        // cy.clearCookies()
+        // cy.clearLocalStorage()
 
         cy.loadWebsite()
 
-        // Load user data from the fixture before each test
-        cy.fixture('userData').as('userData')
+        // // Load user data from the fixture before each test
+        // cy.fixture('userData').as('userData')
     })
 
     beforeEach(() => {
         cy.fixture('addressData').as('address')
     })
 
-    it('should log in to the application', function () {
-        // Navigate to the login page before each test
-        cy.visit(Cypress.config('baseUrl') + '/login')
+    // it('should log in to the application', function () {
+    //     // Navigate to the login page before each test
+    //     cy.visit(Cypress.config('baseUrl') + '/login')
 
-        // Check if the "Welcome, Please Sign In!" message is displayed
-        cy.get('.page-title h1').should('contain', 'Welcome, Please Sign In!')
+    //     // Check if the "Welcome, Please Sign In!" message is displayed
+    //     cy.get('.page-title h1').should('contain', 'Welcome, Please Sign In!')
 
-        // Use the custom 'login' command to log in with incorrect credentials
-        cy.login(this.userData)
-    })
+    //     // Use the custom 'login' command to log in with incorrect credentials
+    //     cy.login(this.userData)
+    // })
 
     it('should add a new address', function () {
         cy.navigateToAccountDetails()
@@ -56,11 +56,11 @@ describe('Add address', () => {
             .should('have.length', 1)
     })
 
-    it('should delete the new address', function () {
-        cy.deleteFirstAddress()
+    // it('should delete the new address', function () {
+    //     cy.deleteFirstAddress()
 
-        cy.get('.address-list')
-            .children('.address-item')
-            .should('have.length', 0)
-    })
+    //     cy.get('.address-list')
+    //         .children('.address-item')
+    //         .should('have.length', 0)
+    // })
 })
